@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        * {
+            border-radius: 5px;
+        }
+
+        body.thumb {
+            transform: scale(0.4);
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        }
+
+        main {
+            min-height: 80vh;
+        }
+
+        [class*='container'] {
+            border: 1px dashed #eee;
+            background-clip: content-box;
+        }
+
+        .row [class*='col'] {
+            background-color: #efefef;
+            background-clip: content-box;
+        }
+
+        .nav-item {
+            background-color: #eeeeff;
+            background-clip: content-box;
+        }
+    </style>
+</head>
+<body>
+<header class="py-3 mb-4 border-bottom shadow">
+    <div class="container-fluid align-items-center d-flex">
+        <div class="flex-shrink-1">
+            <a href="#" class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none"><i class="bi bi-person-workspace fs-1"></i> </a>
+        </div>
+        <div class="flex-grow-1 d-flex align-items-center">
+            <form class="w-100 me-3" style="margin-left:20px;">
+                <input type="search" class="form-control" placeholder="Search...">
+            </form>     
+        </div>
+        <div class="btn-group dropstart">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Admin
+            </button>
+            <ul class="dropdown-menu">
+                <a class="dropdown-item" href="#">My Profile</a>
+                <a class="dropdown-item" href="#">Show Admins</a>
+                <a class="dropdown-item" href="#">Show Activity</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Edit Profile</a>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-3">
+        <div class="bg-light border rounded-3 p-1 h-100 sticky-top">
+        <ul class="nav nav-pills flex-sm-column flex-row mb-auto justify-content-between">
+            <li>
+                <a routerLink="customers" class="nav-link px-2 text-truncate"><i class="bi bi-people fs-5" style="color:gray;"></i>
+                    <span class="d-none d-sm-inline" style="margin-left:5px;font-weight: bold;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet;">Customers</span> </a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+                <a routerLink="orders" class="nav-link px-2 text-truncate"><i class="bi bi-card-text fs-5" style="color:gray;"></i>
+                    <span class="d-none d-sm-inline" style="margin-left:5px;font-weight: bold;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet;">Orders</span> </a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+                <a href="#" class="nav-link px-2 text-truncate"><i class="bi bi-bricks fs-5" style="color:gray;"></i>
+                    <span class="d-none d-sm-inline" style="margin-left:5px;font-weight: bold;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet;">Products</span> </a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+                <a href="#" class="nav-link px-2 text-truncate"><i class="bi bi-inboxes" style="color:gray;"></i>
+                    <span class="d-none d-sm-inline" style="margin-left:5px;font-weight: bold;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet;">Suppliers</span> </a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+                <a href="#" class="nav-link px-2 text-truncate"><i class="bi bi-gift-fill" style="color:gray;"></i>
+                    <span class="d-none d-sm-inline" style="margin-left:5px;font-weight: bold;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet;">Offers</span> </a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+                <a href="#" class="nav-link px-2 text-truncate"><i class="bi bi-people-fill" style="color:gray;"></i>
+                    <span class="d-none d-sm-inline" style="margin-left:5px;font-weight: bold;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet;">Support</span> </a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+                <a href="#" class="nav-link px-2 text-truncate"><i class="bi bi-cash-stack" style="color:gray;"></i>
+                    <span class="d-none d-sm-inline" style="margin-left:5px;font-weight: bold;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet;">Payment Details</span> </a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+                <a href="#" class="nav-link px-2 text-truncate"><i class="bi bi-graph-up-arrow" style="color:gray;"></i>
+                    <span class="d-none d-sm-inline" style="margin-left:5px;font-weight: bold;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet;">Analysis</span> </a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+                <a href="#" class="nav-link px-2 text-truncate"><i class="bi bi-briefcase" style="color:gray;"></i>
+                    <span class="d-none d-sm-inline" style="margin-left:5px;font-weight: bold;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet;">Delivery Partners</span> </a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+                <a href="#" class="nav-link px-2 text-truncate"><i class="bi bi-info-circle" style="color:gray;"></i>
+                    <span class="d-none d-sm-inline" style="margin-left:5px;font-weight: bold;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet;">Help</span> </a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+                <a href="#" class="nav-link px-2 text-truncate"><i class="bi bi-box-arrow-left" style="color:gray;"></i>
+                    <span class="d-none d-sm-inline" style="margin-left:5px;font-weight: bold;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet;">LogOut</span> </a>
+            </li>
+        </ul>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="bg-light border rounded-3 p-3">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+</div>
+
+</body>
+</html>
