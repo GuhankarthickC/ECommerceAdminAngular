@@ -10,7 +10,7 @@ export class CustomerService {
 
   constructor(private http:HttpClient) { }
   req:string="https://localhost:44346/api/Users";
-  getAllUsers():Observable<User[]>
+  getAllCustomers():Observable<User[]>
   {
     return this.http.get<User[]>(this.req);
   }
