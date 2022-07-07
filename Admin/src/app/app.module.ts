@@ -28,7 +28,8 @@ import { AdminslistComponent } from './adminslist/adminslist.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
