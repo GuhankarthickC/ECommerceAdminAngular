@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminslistComponent } from './adminslist/adminslist.component';
+import { ProductsComponent } from './products/products.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AdminslistComponent } from './adminslist/adminslist.component';
     OrdersComponent,
     LoginComponent,
     RegisterComponent,
-    AdminslistComponent
+    AdminslistComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,

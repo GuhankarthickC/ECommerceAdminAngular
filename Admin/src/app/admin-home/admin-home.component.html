@@ -39,37 +39,39 @@
         </div>
         <div class="flex-grow-1 d-flex align-items-center">
             <form class="w-100 me-3" style="margin-left:20px;">
-                <input type="search" class="form-control" placeholder="Search...">
-            </form>     
+            <div class="input-group">
+                <input type="search" class="form-control" placeholder="Search...">    
+            <div class="input-group-append">
+                <button class="btn btn-warning border-2" type="button" style="margin-left:-2px;">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+            </div>
+            </form>  
         </div>
-        <div class="btn-group dropstart">
-            <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Admin
+        <div class="btn-group">
+            <button type="button" class="btn btn-danger">Admin</button>
+            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
-                <a class="dropdown-item" href="#">My Profile</a>
-                <a class="dropdown-item" href="#">Show Admins</a>
-                <a class="dropdown-item" href="#">Show Activity</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Edit Profile</a>
+              <li><a class="dropdown-item" routerLink="adminslist">View Admins</a></li>
+              <li><a class="dropdown-item" routerLink="">Admin Contributions</a></li>
+              <li><a class="dropdown-item" routerLink="register">Add New Admin</a></li>
+              <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
             </ul>
-        </div>
+          </div>
     </div>
 </header>
-<div class="d-flex justify-content-end">
-    <div>
-        <a routerLink="adminslist">View Admins</a> |
-        <a routerLink="/">Admin Contributions</a> |
-        <a routerLink="register">Add New Admin</a>
-    </div>
-</div>
 <div class="container-fluid">
     <div class="row">
     <div class="col-md-3">
         <div class="bg-light border rounded-3 p-1 h-100 sticky-top">
         <ul class="nav nav-pills flex-sm-column flex-row mb-auto justify-content-between">
             <li>
-                <a routerLink="customers" class="nav-link px-2 text-truncate"><i class="bi bi-people fs-5" style="color:gray;"></i>
+                <a routerLink="customers"  class="nav-link px-2 text-truncate"><i class="bi bi-people fs-5" style="color:gray;"></i>
                     <span class="d-none d-sm-inline" style="margin-left:5px;font-weight: bold;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet;">Customers</span> </a>
             </li>
             <div class="dropdown-divider"></div>
@@ -79,7 +81,7 @@
             </li>
             <div class="dropdown-divider"></div>
             <li>
-                <a href="#" class="nav-link px-2 text-truncate"><i class="bi bi-bricks fs-5" style="color:gray;"></i>
+                <a routerLink="products" class="nav-link px-2 text-truncate"><i class="bi bi-bricks fs-5" style="color:gray;"></i>
                     <span class="d-none d-sm-inline" style="margin-left:5px;font-weight: bold;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet;">Products</span> </a>
             </li>
             <div class="dropdown-divider"></div>
@@ -132,10 +134,9 @@
                 <img style="width: 20%;" src="../../assets/images/admin.svg" alt="admin work">
             </div>
             <router-outlet></router-outlet>
-        </div>
+        </div>  
     </div>
 </div>
 </div>
-
 </body>
 </html>
