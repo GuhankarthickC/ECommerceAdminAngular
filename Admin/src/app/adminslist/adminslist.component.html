@@ -4,9 +4,7 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
-                        <img src="https://mdbootstrap.com/img/new/avatars/3.jpg" alt=""
-                            style="width: 45px; height: 45px" class="rounded-circle" />
-                            <!-- <i class="bi bi-person-circle fa-2x"></i> -->
+                        <p class="fs-1"><i class="bi bi-person-circle fa-2x"></i></p>
                         <div class="ms-3">
                             <p class="fw-bold mb-1">{{admin.adminName}}</p>
                             <p class="text-muted mb-0">{{admin.email}}</p>
@@ -15,16 +13,20 @@
                     <span class="badge rounded-pill locked" *ngIf="admin.isLocked">Locked</span>
                     <span class="badge rounded-pill active" *ngIf="admin.isLoggedIn">Active</span>
                     <span class="badge rounded-pill deleted" *ngIf="admin.isDeleted">Deleted</span>
-                    <span class="badge rounded-pill offline" *ngIf="!admin.isDeleted && !admin.isLocked && !admin.isLoggedIn">Offline</span>
+                    <span class="badge rounded-pill offline"
+                        *ngIf="!admin.isDeleted && !admin.isLocked && !admin.isLoggedIn">Offline</span>
                 </div>
             </div>
             <div class="card-footer border-0 bg-light p-2 d-flex justify-content-around">
-                <a class="btn m-0 text-reset" href="#" role="button" data-ripple-color="primary">View<i class="bi bi-view-list m-1"></i></a>
-                <a class="btn m-0 text-reset" href="#" role="button" data-ripple-color="primary">Edit<i class="bi bi-pen m-1"></i></a>
+                <a class="btn m-0 text-reset" href="#" role="button" data-ripple-color="primary">View<i
+                        class="bi bi-view-list m-1"></i></a>
+                <a class="btn m-0 text-reset" href="#" role="button" data-ripple-color="primary">Edit<i
+                        class="bi bi-pen m-1"></i></a>
             </div>
         </div>
     </div>
 </div>
-<div class="d-flex justify-content-center" *ngIf="admins.length==0">
-    <img src="./searching.gif" alt="searching"/>
+<div class="d-flex justify-content-center" style="background-color: white;" *ngIf="admins.length==0">
+    <img src="/assets/images/searching.gif" alt="searching" style="height: 500px;" >
 </div>
+

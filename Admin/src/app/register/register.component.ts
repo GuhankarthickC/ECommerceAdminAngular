@@ -21,14 +21,17 @@ export class RegisterComponent implements OnInit {
   addAdmin():any{
     this.server.pushAdmin(this.admin).subscribe(response=>{
       this.newAdmin = response;
+      console.log("In addAdmin function.");
       if(this.newAdmin==null){
         this.isSuccess = false;
         this.registeredMessage = "Unable to process your request. Adding new admin failed.";
       }
-      this.isSuccess=true;
-      this.registeredMessage = this.newAdmin.adminName+" created successfully.";
-      console.log(this.registeredMessage);
-      this.redirectDashboard();
+      else{
+        this.isSuccess=true;
+        this.registeredMessage = this.newAdmin.adminName+" created successfully.";
+        console.log(this.registeredMessage);
+        this.redirectDashboard();
+      }
     });
   }
 

@@ -32,7 +32,12 @@ export class AdminService {
   }
 
   checkCredentials(mail:string, pwd:string): Observable<string> {
-    return this.http.get<string>(this.url + "mailid=" + mail + "/password=" + pwd);
+    return this.http.get(this.url + mail + "/" + pwd, {responseType:'text'});
+  }
+
+  logout(id:string):any{
+    console.log("Logout called in admin service");
+    return this.http.head(this.url + id);
   }
 
 }

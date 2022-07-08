@@ -1,75 +1,73 @@
-<div class="d-flex justify-content-center">
-  <section class="vh-100">
-    <div class="container-fluid h-custom">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-md-9 col-lg-6 col-xl-5">
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid"
-            alt="Sample image">
-        </div>
-        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-          <form>
+<nav class="nav" style="position: absolute;">
+  <a class="navbar-brand m-4" href="#" style="color: blueviolet;">
+    <b>ShopX Admin</b>
+  </a>
+</nav>
 
+<div class="m-4">
+  <div class="">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-md-8 col-lg-6 col-xl-5" >
+        <img src="../../assets/images/login.gif" alt="">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form #loginForm="ngForm">
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="mail">Email address</label>
+            <input type="email" id="mail" [(ngModel)]="mailid" [ngModelOptions]="{standalone: true}" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9]+$"
+            #mail="ngModel"  class="form-control form-control-lg" placeholder="Enter email address" required/>
+            <span class="text-danger small" *ngIf="mail.errors?.['pattern']">Invalid email.</span>
+            <span class="text-danger small" *ngIf="mail.touched && !mail.errors?.['pattern'] && mail.invalid">Email is required.</span>
+          </div>
 
-            <!-- Email input -->
-            <div class="form-outline mb-4">
-              <input type="email" id="form3Example3" class="form-control form-control-lg"
-                placeholder="Enter a valid email address" />
-              <label class="form-label" for="form3Example3">Email address</label>
-            </div>
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            <label class="form-label" for="pwd">Password</label>
+            <input type="password" id="pwd" #pwd="ngModel" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" class="form-control form-control-lg" placeholder="Enter password" required/>
+            <span class="text-danger small" *ngIf="pwd.touched && pwd.invalid">Password is required.</span>
+          </div>
 
-            <!-- Password input -->
-            <div class="form-outline mb-3">
-              <input type="password" id="form3Example4" class="form-control form-control-lg"
-                placeholder="Enter password" />
-              <label class="form-label" for="form3Example4">Password</label>
-            </div>
+          <div class="d-flex justify-content-end align-items-center">
+            <a href="#!" style="color: blueviolet;">Forgot password?</a>
+          </div>
 
-            <div class="d-flex justify-content-between align-items-center">
-              <!-- Checkbox -->
-              <div class="form-check mb-0">
-                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                <label class="form-check-label" for="form2Example3">
-                  Remember me
-                </label>
-              </div>
-              <a href="#!" class="text-body">Forgot password?</a>
-            </div>
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button type="submit" class="btn btn-lg text-white" [disabled]="mail.invalid || pwd.invalid"
+              style="padding-left: 2.5rem; padding-right: 2.5rem; background-color: blueviolet;" (click)="validateAdmin()">Login</button>
+           
+          </div>
 
-            <div class="text-center text-lg-start mt-4 pt-2">
-              <button type="button" class="btn btn-primary btn-lg"
-                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-              <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
-                  class="link-danger">Register</a></p>
-            </div>
-
-          </form>
-        </div>
+        </form>
       </div>
     </div>
-    <div
-      class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-      <!-- Copyright -->
-      <div class="text-white mb-3 mb-md-0">
-        Copyright © 2022. All rights reserved.
-      </div>
-      <!-- Copyright -->
+  </div>
 
-      <!-- Right -->
-      <div>
-        <a href="#!" class="text-white me-4">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="#!" class="text-white me-4">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="#!" class="text-white me-4">
-          <i class="fab fa-google"></i>
-        </a>
-        <a href="#!" class="text-white">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-      </div>
-      <!-- Right -->
+  <div
+    class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-light">
+    <!-- Copyright -->
+    <div class="mb-3 mb-md-0" style="color:blueviolet;">
+      Copyright © 2022. All rights reserved.
     </div>
-  </section>
+    <!-- Copyright -->
+
+    <!-- Right -->
+    <div>
+      <p style="color: blueviolet;">
+        <i class="bi bi-envelope-fill"></i> ShopX.IndiaPvtLtd@gmail.com
+      </p>
+    </div>
+    <!-- Right -->
+  </div>
+</div>
+
+<div class="border border-dark" style="position:fixed;right:1%;top:1%;" *ngIf="show==true">
+  <div class="toast-header" style="color: blueviolet;">
+    <i class="bi bi-bell"></i>
+    <strong class="me-auto"> Message </strong>
+    <button type="button" class="btn-close" (click)="closeToast()"></button>
+  </div>
+  <div class="toast-body">
+    {{loginResponse}}
+  </div>
 </div>

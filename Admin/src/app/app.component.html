@@ -1,7 +1,7 @@
-<div>
+<div *ngIf="!isLogged">
+  <app-login></app-login>
+</div>
+
+<div *ngIf="isLogged">
   <app-admin-home></app-admin-home>
 </div>
-<!-- 
-<div>
-  <app-login></app-login>
-</div> -->
