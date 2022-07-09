@@ -45,9 +45,7 @@ clothing:Array<string>=[];
     this.products=this.filteredproducts;
   }
   price():void{
-    console.log(this.value);
-    this.products=this.filteredproducts.filter((product)=>(product.price < this.value));
-    console.log(this.products);
+    this.products=this.products.filter((product)=>(product.price < this.value));
   }
   sort():void{
     this.grocery.push("Vegetables","Fruits","Juices");
