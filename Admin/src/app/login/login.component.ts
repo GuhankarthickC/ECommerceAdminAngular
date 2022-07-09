@@ -12,7 +12,6 @@ export class LoginComponent implements OnInit {
   mailid:any;
   password:any;
   loginResponse:string = "";
-  responseType = "";
   unSuccessAttempts = 0;
   show = false;
   constructor(private server:AdminService, private route:Router) { }
@@ -25,6 +24,12 @@ export class LoginComponent implements OnInit {
     else{
       this.show = false;
     }
+    if(sessionStorage.getItem("response")!=undefined){
+      this.loginResponse = sessionStorage.getItem("response");
+    }
+    if(sessionStorage.getItem("attempts")!=undefined){
+      this.unSuccessAttempts = Number.parseInt(sessionStorage.getItem("attempts"), 10);
+    }
   }
 
   validateAdmin():any{
@@ -32,25 +37,21 @@ export class LoginComponent implements OnInit {
     this.server.checkCredentials(this.mailid, this.password).subscribe(response=>{
       this.loginResponse=response;
       console.log(this.loginResponse);
-      if(this.loginResponse == "noadmin"){
-        this.responseType = "failed";
-      }
-      else if(this.loginResponse == "invalid"){
-        this.responseType = "failed";
+      if(this.loginResponse == "invalid"){
         this.unSuccessAttempts += 1;
-      }
-      else if(this.loginResponse == "deleted" || this.loginResponse == "locked" || this.loginResponse == "loggedin"){
-        this.responseType = "warning";
       }
       else if(this.loginResponse.length == 5){
         console.log("Valid credentials");
         this.server.isLoggedIn = true;
         sessionStorage.setItem("isLoggedIn", "true");
         sessionStorage.setItem("adminId", this.loginResponse);
+        sessionStorage.setItem("response", "success");
+        sessionStorage.setItem("attempts", "0");
         this.unSuccessAttempts = 0;
-        this.responseType = "success";
       }
-      console.log(this.responseType, this.unSuccessAttempts);
+      console.log(this.loginResponse, this.unSuccessAttempts);
+      sessionStorage.setItem("response", this.loginResponse);
+      sessionStorage.setItem("attempts", this.unSuccessAttempts.toString());
       location.reload();
       this.redirectDashboard();
       sessionStorage.setItem("show", "1");

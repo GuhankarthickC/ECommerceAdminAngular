@@ -12,6 +12,7 @@ import { RegisterComponent } from './register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminslistComponent } from './adminslist/adminslist.component';
 import { ProductsComponent } from './products/products.component';
+import { ChangesComponent } from './changes/changes.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ProductsComponent } from './products/products.component';
     LoginComponent,
     RegisterComponent,
     AdminslistComponent,
-    ProductsComponent
+    ProductsComponent,
+    ChangesComponent
   ],
   imports: [
     BrowserModule,

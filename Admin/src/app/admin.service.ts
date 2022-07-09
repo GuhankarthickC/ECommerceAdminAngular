@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Admin } from 'Models/Admin';
+import { Contribution } from 'Models/Contribution';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,7 +11,8 @@ import { Observable } from 'rxjs';
 export class AdminService {
   url: string = "https://localhost:44353/api/Admins/";
   isLoggedIn:boolean = false;
-
+  admin:Admin;
+  change:Contribution;
   constructor(private http:HttpClient , private route:Router) { }
 
   redirectDashboard():void{
@@ -20,6 +22,25 @@ export class AdminService {
   getAdmins(): Observable<Admin[]> {
     return this.http.get<Admin[]>(this.url);
   }
+
+  getAdminById(id:any): Observable<Admin> {
+    return this.http.get<Admin>(this.url + id);
+  }
+
+  updateAdmin(a: Admin): Observable<any> {
+    return this.http.put<any>(this.url + a.adminId, a, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Method': '*'
+      })
+    });
+  }
+
+  deleteAdmin(id: number): Observable<any> {
+    return this.http.delete<any>(this.url + id);
+  }
+
 
   pushAdmin(admin:Admin):any{
     return this.http.post<Admin>(this.url, admin, {

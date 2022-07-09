@@ -61,6 +61,7 @@
   </div>
 </div>
 
+
 <div class="border border-dark" style="position:fixed;right:1%;top:1%;" *ngIf="show==true">
   <div class="toast-header" style="color: blueviolet;">
     <i class="bi bi-bell"></i>
@@ -68,6 +69,10 @@
     <button type="button" class="btn-close" (click)="closeToast()"></button>
   </div>
   <div class="toast-body">
-    {{loginResponse}}
+    <p class="text-danger" *ngIf="loginResponse=='invalid'">Wrong MailId or Password. Unsuccessful attempts {{unSuccessAttempts}}</p>
+    <p class="text-danger" *ngIf="loginResponse=='noadmin'">Wrong MailId or Password.</p>
+    <p class="text-warning" *ngIf="loginResponse=='loggedin'">Already logged in another browser.</p>
+    <p class="text-info" *ngIf="loginResponse=='locked'">You are Locked. For more info contact administrator.</p>
+    <p class="text-info" *ngIf="loginResponse=='deleted'">You are no longer a user. For more info contact administrator.</p>
   </div>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Admin } from 'Models/Admin';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -8,10 +9,16 @@ import { AdminService } from '../admin.service';
   styleUrls: ['./admin-home.component.css']
 })
 export class AdminHomeComponent implements OnInit {
-
-  constructor(private server:AdminService, private route:Router) { }
+  adminid:string = "";
+  constructor(public server:AdminService, private route:Router) { }
 
   ngOnInit(): void {
+    this.adminid = sessionStorage.getItem("adminId");
+    if(this.adminid!= undefined && this.adminid.length == 5){
+        this.server.getAdminById(this.adminid).subscribe(response=>{
+        this.server.admin = response;
+      })
+    }
   }
 
   callLogout():any{
