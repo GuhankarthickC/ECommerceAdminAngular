@@ -1,26 +1,29 @@
 <head>
-    <style>
-        .card-img-top {
-            width: 100%;
-            height: 15vw;
-            object-fit: cover;
-            margin-top: -20px;
-        }
-        #t1{
-            margin-top: -10px;
-        }
-        .card:hover{
-     transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
-}
-    </style>
 </head>
 <body>
 <div class="container-fluid text-center">
     <h1 class="h3 mb-2 text-gray-800" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet">Active Products</h1><br>
     <div *ngIf="producttable">
+              <div class="form">
+                <i class="bi bi-search"></i>
+                <input type="search" placeholder="Enter Product Name" [(ngModel)]="searchKey" (keyup)="search()" class="form-control form-input" placeholder="Search for product..."><br>
+                <span class="left-pan"><i class="bi bi-mic-fill"></i></span>
+              </div>  
+              <div class="row">
+                    <div class="col-8">
+                        <label for="range" style="color:blueviolet;font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;font-weight:200;font-size:20px;">Filter by price:</label>
+                        <input type="range" id="range" step="50" min="10" max="2000" [(ngModel)]="value" value="" (change)="price()" onchange="rangePrimary.value=value" style="margin-left:5px;"><input type="text" id="rangePrimary" value="Rs. 0" style="margin-left:9px;width:12%;border-radius: 5px;" />
+                    </div>
+                    <div class="col-4">
+                        <label class="switch">
+                            <input class="switch-input" type="checkbox" (change)="sort()" [(ngModel)]="ischecked" />
+                            <span class="switch-label" data-on="Clothing" data-off="Groceries"></span> 
+                            <span class="switch-handle"></span> 
+                           </label>
+                    </div>
+              </div><br>
         <div class="row">
-            <div *ngFor="let p of products" class="col-3 card" size="12rem" style="border-right-color: blueviolet; border-right-width: 3px; border-left-color: blueviolet; border-left-width: 3px; padding:10px;margin-left:60px;margin-bottom: 15px;">
+            <div *ngFor="let p of products" class="card col-3" size="12rem" style="border-right-color: blueviolet; border-right-width: 3px; border-left-color: blueviolet; border-left-width: 3px; padding:10px;margin-left:60px;margin-bottom: 15px;">
                     <div class="card-title text-center">
                         <h1 style="color:black ;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-weight:bold;">{{p.productName}}</h1>
                     </div>
@@ -30,8 +33,16 @@
                             <h4 style="font-family:cursive;font-weight:bold;">{{p.category}}</h4>
                             <div id="t1">M.R.P.: <img src="../../assets/images/rupee.png" height="15" width="12" alt="Logo" />{{p.price}}</div>
                             <a routerLink="products" style="width:75%;margin-left: 22px;" class="btn btn-warning" >Show More <i class="bi bi-info-circle-fill"></i></a>
+                        </div>
                     </div>
-                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="producttable==false">
+        <div class="card">
+            <div class="card-title">
+                <img style="width: 35%;" src="../../assets/images/No data.gif" alt="No Content">
+                <h2 class="h3 mb-2 text-gray-800" style="font-family:cursive;color:black">404! No Products Available, Kindly check your backside connection.</h2><br>
             </div>
         </div>
     </div>
