@@ -23,4 +23,35 @@ export class ProductService {
       })
     });
   }
+  updateproductdetails(product:Product):Observable<any>
+  {
+      return this.http.put<any>(this.req+"/"+product.productId,product,{
+      headers:new HttpHeaders({
+        'Content-Type':'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Allow-Method':'*'
+      })
+    });
+  }
+  createnewproduct(product:Product):Observable<Product>
+  {
+    return this.http.post<Product>(this.req,product,{
+      headers:new HttpHeaders({
+        'Content-Type':'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Allow-Method':'*'
+        
+      })
+    });
+  }
+  deleteproduct(id:number):Observable<any>
+  {
+    return this.http.delete<any>(this.req+"/"+id,{
+      headers:new HttpHeaders({
+        'Content-Type':'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Allow-Method':'*'
+      })
+    });
+  }
 }

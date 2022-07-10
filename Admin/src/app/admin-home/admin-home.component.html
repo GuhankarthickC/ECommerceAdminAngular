@@ -42,7 +42,7 @@
             <div class="input-group">
                 <input type="search" class="form-control" placeholder="Search...">    
             <div class="input-group-append">
-                <button class="btn border-2" type="button" style="margin-left:-2px;background-color: blueviolet;color:white;z-index: 0;">
+                <button class="btn btn-warning border-2" type="button" style="margin-left:-2px;z-index: 0;">
                     <i class="bi bi-search"></i>
                 </button>
             </div>
@@ -50,11 +50,11 @@
             </form>  
         </div>
         <div class="btn-group">
-            <button type="button" class="btn" style="background-color: blueviolet;color:white" data-bs-toggle="tooltip" data-bs-placement="bottom" title={{admin.lastLoggedIn}}>
+            <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title={{admin.lastLoggedIn}}>
                 <span *ngIf="admin==undefined"></span>
                 <span *ngIf="admin!=undefined">{{ admin.adminName }}</span>
             </button>
-            <button type="button" style="background-color: blueviolet;color:white" class="btn dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
               <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
