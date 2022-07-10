@@ -1,3 +1,4 @@
+import { Chat } from "./Chat";
 import { Contribution } from "./Contribution";
 
 export class Admin {
@@ -28,5 +29,7 @@ export class Admin {
     isDeleted: boolean | null;
     isLocked: boolean | null;
     unSuccessfulAttempts: number | null;
+    chatMessageFromNavigations: Chat[];
+    chatMessageToNavigations: Chat[];
     contributions: Contribution[];
 }
