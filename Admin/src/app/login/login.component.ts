@@ -14,6 +14,14 @@ export class LoginComponent implements OnInit {
   loginResponse:string = "";
   unSuccessAttempts = 0;
   show = false;
+  readotp = false;
+  forgotpassword = false;
+  changepassword = false;
+  fmailid:string;
+  fpassword:string;
+  cfp:string;
+  otp:string;
+  otpEntered:string;
   constructor(private server:AdminService, private route:Router) { }
   
 
@@ -65,6 +73,41 @@ export class LoginComponent implements OnInit {
   closeToast(){
     sessionStorage.setItem("show", "0");
     location.reload();
+  }
+
+  showForgotPasswordPage(){
+    this.forgotpassword=true;
+  }
+
+  sendotp(){
+    this.server.checkAdminAndSendOTP(this.fmailid).subscribe(res=>{
+      console.log("send otp called otp sent to", this.fmailid, "and opt=", res);
+      this.otp = res;
+      this.readotp = true;
+      this.forgotpassword = false;
+    });
+  }
+
+  validateotp(){
+    if(this.otpEntered == this.otp){
+      this.changepassword = true;
+      this.readotp = false;
+    }
+    else{
+      this.changepassword = false;
+      location.reload();
+    }
+  }
+
+  chPassword(){
+    this.server.changePassword(this.fmailid, this.fpassword).subscribe();
+    location.reload();
+  }
+
+  close(){
+    this.forgotpassword = false;
+    this.changepassword = false;
+    this.readotp = false;
   }
 
 }

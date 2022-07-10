@@ -29,7 +29,7 @@
           </div>
 
           <div class="d-flex justify-content-end align-items-center">
-            <a href="#!" style="color: blueviolet;">Forgot password?</a>
+            <a style="color: blueviolet;" (click)="showForgotPasswordPage()">Forgot password?</a>
           </div>
 
           <div class="text-center text-lg-start mt-4 pt-2">
@@ -69,10 +69,63 @@
     <button type="button" class="btn-close" (click)="closeToast()"></button>
   </div>
   <div class="toast-body">
+    <p class="text-danger" *ngIf="loginResponse=='serverdown'">Server is facing some issues. Unable to reach.</p>
     <p class="text-danger" *ngIf="loginResponse=='invalid'">Wrong MailId or Password. Unsuccessful attempts {{unSuccessAttempts}}</p>
     <p class="text-danger" *ngIf="loginResponse=='noadmin'">Wrong MailId or Password.</p>
     <p class="text-warning" *ngIf="loginResponse=='loggedin'">Already logged in another browser.</p>
     <p class="text-info" *ngIf="loginResponse=='locked'">You are Locked. For more info contact administrator.</p>
     <p class="text-info" *ngIf="loginResponse=='deleted'">You are no longer a user. For more info contact administrator.</p>
   </div>
+</div>
+
+
+
+
+<div class="border border-dark bg-light opacity-75" style="position:fixed;left:0%;top:0%;height: 100%;width: 100%;" *ngIf="forgotpassword || readotp || changepassword">
+</div>
+<div class="border border-dark bg-light shadow box-shadow" style="position:fixed;left:40%;top:35%;z-index:1" *ngIf="forgotpassword">
+    <div class="toast-header opacity-100" style="color: blueviolet;">
+        <strong class="me-auto"> Forgot Password </strong>
+        <button type="button" class="btn-close" (click)="close()"></button>
+        </div>
+        <div class="toast-body">
+          <form >
+            Enter Mail ID:
+            <input type="email" #fm="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9]+$" [(ngModel)]="fmailid" [ngModelOptions]="{standalone:true}" required><br>
+            <span class="text-danger" *ngIf="fm.errors?.['pattern'] || (fm.touched && fm.invalid)">Enter a valid MailId</span>
+            <br>
+            <button class="btn" style="background-color: blueviolet;color:white;" [disabled]="fm.invalid" (click)="sendotp()">Send OTP</button>
+          </form>
+        </div>
+</div>
+
+<div class="border border-dark bg-light shadow box-shadow" style="position:fixed;left:40%;top:35%;z-index:1" *ngIf="readotp">
+  <div class="toast-header opacity-100" style="color: blueviolet;">
+      <strong class="me-auto"> Check Your Mail Inbox for OTP </strong>
+      <button type="button" class="btn-close" (click)="close()"></button>
+      </div>
+      <div class="toast-body">
+        <form >
+          Enter OTP:
+          <input type="text" #p="ngModel" [(ngModel)]="otpEntered" [ngModelOptions]="{standalone:true}" required><br>
+          <span class="text-danger" *ngIf="p.touched && p.invalid">Enter a valid MailId</span>
+          <br>
+          <button style="background-color: blueviolet;color:white;" [disabled]="p.invalid" (click)="validateotp()">Verify OTP</button>
+        </form>
+      </div>
+</div>
+
+
+<div class="border border-dark bg-light shadow box-shadow" style="position:fixed;left:40%;top:35%;z-index:1" *ngIf="changepassword">
+    <div class="toast-header opacity-100" style="color: blueviolet;">
+        <strong class="me-auto"> Change Your Password </strong>
+        <button type="button" class="btn-close" (click)="close()"></button>
+        </div>
+        <div class="toast-body">
+          <form>
+            New Password: <input type="text" #p1="ngModel" [(ngModel)]="fpassword" [ngModelOptions]="{standalone:true}" required>
+            <br>
+            <button class="btn" style="background-color: blueviolet;color:white;" [disabled]="p1.invalid" (click)="chPassword()">Change Password</button>
+          </form>
+        </div>
 </div>
