@@ -11,17 +11,25 @@ export class CustomersComponent implements OnInit {
 users:User[]=[];
 count:any;
 table_value:any=false;
+table_error:any=true;
   constructor(private obj:CustomerService) { }
 
   ngOnInit(): void {
+    this.get_customers();
   }
   get_customers():void
   {
-    this.table_value=!this.table_value;
     this.obj.getAllCustomers().subscribe(data=>{
       this.users=data;
       this.count=data.length;
       console.log(this.users);
+      if(this.users.length > 0){
+        this.table_error=false;
+      }
     });
+    
+  }
+  btntoggle():void{
+    this.table_value=!this.table_value;
   }
 }
