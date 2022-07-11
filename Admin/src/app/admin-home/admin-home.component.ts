@@ -58,28 +58,28 @@ export class AdminHomeComponent implements OnInit {
     location.reload();
   }
 
-  checkNewMessages() {
-    this.messages.getNewMessages(this.admin.adminId).subscribe(response=>{
-      this.newMessages = response;
-      console.log(this.newMessages.length)
-    });
-  }
+  // checkNewMessages() {
+  //   this.messages.getNewMessages(this.admin.adminId).subscribe(response=>{
+  //     this.newMessages = response;
+  //     console.log(this.newMessages.length)
+  //   });
+  // }
 
-  getMessages() {
-    this.messages.getAllMessages(this.admin.adminId).subscribe(response=>{
-      this.allMessages = response;
-      console.log(this.allMessages.length)
-    });
-  }
+  // getMessages() {
+  //   this.messages.getAllMessages(this.admin.adminId).subscribe(response=>{
+  //     this.allMessages = response;
+  //     console.log(this.allMessages.length)
+  //   });
+  // }
 
   
 
-  repeat = setTimeout(() => {
-    this.checkNewMessages();
-    if(this.stopNotifications == true){
-      clearTimeout(this.repeat);
-    }
-  }, 1000);
+  // repeat = setTimeout(() => {
+  //   this.checkNewMessages();
+  //   if(this.stopNotifications == true){
+  //     clearTimeout(this.repeat);
+  //   }
+  // }, 1000);
 
   
 }
