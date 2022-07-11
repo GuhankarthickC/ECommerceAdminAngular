@@ -50,7 +50,7 @@
             </form>  
         </div>
         <div class="btn-group">
-            <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title={{admin.lastLoggedIn}}>
+            <button type="button" class="btn btn-danger">
                 <span *ngIf="admin==undefined"></span>
                 <span *ngIf="admin!=undefined">{{ admin.adminName }}</span>
             </button>
@@ -142,9 +142,9 @@
     </div>
 </div>
 </div>
-<!-- <div style="position: fixed;right:2%;bottom:3%;">
-    <a href="#"><h1><i class="bi bi-chat-right-dots-fill m-2 fs-2" style="color: blueviolet;"></i></h1></a>
-</div> -->
+<div style="position: fixed;right:2%;bottom:3%;">
+    <a (click)="showChat()"><h1><i class="bi bi-chat-right-dots-fill m-2 fs-2" style="color: blueviolet;"></i></h1></a>
+</div>
 </body>
 </html>
 
@@ -214,3 +214,38 @@
     </div>
 </div>
 
+<div class="border border-dark bg-light shadow box-shadow" style="position:fixed;right:2%;bottom:2%;z-index:1" *ngIf="showChatWindow">
+    <div class="toast-header opacity-100" style="color: blueviolet;">
+        <strong class="me-auto"> Chats </strong>
+        <button type="button" class="btn-close" (click)="closeMyProfile()"></button>
+        </div>
+        <div class="toast-body">
+            <div class="m-1">
+                <small>Select</small>
+                <select #selectAdmin="ngModel" class="form-select" [(ngModel)]="selectedAdminForChat" required>
+                    <option [attr.value]="" selected disabled>--select--</option>
+                    <option *ngFor="let a of allAdmins" [attr.value]="a.adminId">{{a.adminName}}</option>  
+                </select>
+            </div>
+            
+            <div class="border border-dark m-1" style="height:250px; width:240px;overflow: hidden;">
+                <div *ngIf="selectedAdminForChat!=undefined" style="overflow-y: scroll;height:250px">
+                    <div *ngFor="let m of allMessages">
+                        <div class="m-1 p-1" style="background-color: gray;color: white;width: 170px;word-wrap: break-word;" *ngIf="m.messageFrom.toString()==selectedAdminForChat">{{m.message}}</div>
+                        <small style="font-size: 8px;margin: 1px;" *ngIf="m.messageFrom.toString()==selectedAdminForChat">{{m.sentTime|date:'mediumDate'}} {{m.sentTime|date:'shortTime'}}</small>
+                        <div class="d-flex justify-content-end"><div class="m-1 p-1" style="background-color: blueviolet;color:white;width: 170px;word-wrap: break-word;" *ngIf="m.messageTo.toString()==selectedAdminForChat && m.messageFrom.toString()==adminid">{{m.message}}</div></div> 
+                        <div class="d-flex justify-content-end"><small style="font-size: 8px;" *ngIf="m.messageTo.toString()==selectedAdminForChat && m.messageFrom.toString()==adminid">{{m.sentTime|date:'mediumDate'}} {{m.sentTime|date:'shortTime'}}</small></div>
+                    </div>
+                </div>
+                <div *ngIf="selectedAdminForChat==undefined" class="d-flex justify-content-center">
+                    <p style="opacity: 0.5;">No Messages</p>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between m-1">
+                <textarea #msg="ngModel" class="form-control" id="resize" style="word-wrap: break-word;overflow-y:auto;" [(ngModel)]="adminMessage" rows="2" placeholder="Start typing..." required></textarea>
+                <button style="background-color: blueviolet;" class="btn" [disabled]="selectAdmin.untouched || selectAdmin.invalid || msg.invalid"><i class="bi bi-send-fill" style="color: white;" (click)="sendNewMessage()"></i></button>
+                
+            </div>
+        </div>
+</div>

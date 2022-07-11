@@ -19,8 +19,14 @@ export class ChatService {
     return this.http.get<Chat[]>(this.url + adminId);
   }
 
-  pushChange(message:Chat):any{
-    return this.http.post<Chat>(this.url, message, {
+  pushMessage(fromA:number,toA:number,m:string):any{
+    console.log(this.url);
+    console.log(m);
+    var newChat:Chat = new Chat();
+    newChat.messageFrom = fromA;
+    newChat.messageTo = toA;
+    newChat.message = m;
+    return this.http.post<Chat>(this.url, newChat, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json;charset=UTF-8',
         'Access-Control-Allow-Origin': '*',

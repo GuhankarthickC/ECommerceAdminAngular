@@ -1,6 +1,6 @@
 import { Admin } from "./Admin";
 
-export interface Chat {
+export class Chat {
     chatId: number;
     messageFrom: number | null;
     messageTo: number | null;
