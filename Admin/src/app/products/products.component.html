@@ -1,4 +1,4 @@
-<body>
+
 <div class="container-fluid text-center">
     <h1 class="h3 mb-2 text-gray-800" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet">Active Products</h1><br>
     <div *ngIf="producttable">
@@ -85,7 +85,7 @@
         <div class="toast-body">
             <small style="font-size: 12px;">#{{selectedproduct.productId}}</small>
        
-        <div>
+        <div style="margin:2px;height:450px;overflow-y: scroll;">
             <form class="form" #editproductForm="ngForm" (ngSubmit)="updateproductdetails()">
                 <label for="productname">ProductName:</label>
                 <input class="form-control" type="text" name="" id="productname" [(ngModel)]="selectedproduct.productName" [ngModelOptions]="{standalone: true}"><br><br>
@@ -95,11 +95,11 @@
                 <label for="productprice">Price:</label>
                 <input class="form-control" type="number" id="productprice" [(ngModel)]="selectedproduct.price" [ngModelOptions]="{standalone: true}">
                 <label for="active">Is Active: &nbsp;</label>
-                <input type="text" id="active" [(ngModel)]="selectedproduct.active" [ngModelOptions]="{standalone: true}"/><br>
+                <input class="form-control" type="text" id="active" [(ngModel)]="selectedproduct.active" [ngModelOptions]="{standalone: true}"/><br>
                 <label for="Description">Product Description: &nbsp;</label>
-                <input type="text" id="Description" [(ngModel)]="selectedproduct.pdescription" [ngModelOptions]="{standalone: true}"/><br>
+                <input class="form-control" type="text" id="Description" [(ngModel)]="selectedproduct.pdescription" [ngModelOptions]="{standalone: true}"/><br>
                 <label for="category">Category: &nbsp;</label>
-                <input type="text" id="category" [(ngModel)]="selectedproduct.category" [ngModelOptions]="{standalone: true}" /><br>
+                <input class="form-control" type="text" id="category" [(ngModel)]="selectedproduct.category" [ngModelOptions]="{standalone: true}" /><br>
                     <input class="btn" type="submit"  Value="Save" style="background-color: blueviolet;color:white;margin-left:100px;"/>
                     <button class="btn btn-danger" (click)="deleteproduct()" style="margin-left:50px;">Delete</button>
             </form>
@@ -113,45 +113,45 @@
         <button type="button" class="btn-close" (click)="close()"></button>
         </div>
         <div class="toast-body">
-        <div>
+        <div style="margin:2px;height:450px;overflow-y: scroll;">
             <form  #addproductForm="ngForm" (ngSubmit)="addnewproduct()">
                 <label for="productname">ProductName:</label>
                 <input class="form-control" type="text" name="productName" id="productname" [(ngModel)]="newproduct.productName" required minlength="3" #productname="ngModel">
-                <div *ngIf="productname.invalid && (productname.dirty || productname.touched)" class="alert text-danger">
-                    <div *ngIf="productname.errors?.['required']">
+                <div *ngIf="productname.invalid && (productname.dirty || productname.touched)" class="text-danger">
+                    <span *ngIf="productname.errors?.['required']">
                         *Product Name required.
-                    </div>
-                    <div *ngIf="productname.errors?.['minlength']">
+                    </span>
+                    <span *ngIf="productname.errors?.['minlength']">
                         *Product Name must be at least 3 characters long.
-                    </div>
+                    </span>
                 </div>
                 <label for="productimage">ProductImage:</label>
                 <input class="form-control" type="file" id="productimage" name="imageUrl" (change)="getimagename()" [(ngModel)]="imagename" required  #productimage="ngModel">
-                <div *ngIf="productimage.invalid && (productimage.dirty || productimage.touched)" class="alert text-danger">
-                    <div *ngIf="productimage.errors?.['required']">
+                <div *ngIf="productimage.invalid && (productimage.dirty || productimage.touched)" class="text-danger">
+                    <span *ngIf="productimage.errors?.['required']">
                         *Product Image required.
-                    </div>
+                    </span>
                 </div>
                 <label for="productprice">Price:</label>
                 <input class="form-control" type="number" id="productprice" name="price" [(ngModel)]="newproduct.price" required  #productprice="ngModel"><br>
-                <div *ngIf="productprice.invalid && (productprice.dirty || productprice.touched)" class="alert text-danger">
-                    <div *ngIf="productprice.errors?.['required']">
+                <div *ngIf="productprice.invalid && (productprice.dirty || productprice.touched)" class="text-danger">
+                    <span *ngIf="productprice.errors?.['required']">
                         *Product Price required.
-                    </div>
+                    </span>
                 </div>
                 <label for="active">Is Active (Yes/No): &nbsp;</label>
-                <input type="text" id="active" name="active" [(ngModel)]="newproduct.active" required maxlength="3" pattern="[A-Za-z]{0,3}" #active="ngModel"/>
-                <div *ngIf="active.invalid && (active.dirty || active.touched)" class="alert text-danger">
-                    <div *ngIf="active.errors?.['required']">
+                <input class="form-control" type="text" id="active" name="active" [(ngModel)]="newproduct.active" required maxlength="3" pattern="[A-Za-z]{0,3}" #active="ngModel"/>
+                <div *ngIf="active.invalid && (active.dirty || active.touched)" class=" text-danger">
+                    <span *ngIf="active.errors?.['required']">
                         *Active Field is required.
-                    </div>
-                    <div *ngIf="active.errors?.['pattern']">
+                    </span>
+                    <span *ngIf="active.errors?.['pattern']">
                         *Field should only have alphabets.
-                    </div>
-                </div><br><br>
+                    </span>
+                </div><br>
                 <label for="Description">Product Description: &nbsp;</label>
-                <input type="text" id="Description" name="pdescription" [(ngModel)]="newproduct.pdescription" required minlength="5" pattern="[A-Za-z0-9]{0,100}" #pdescription="ngModel" />
-                <div *ngIf="pdescription.invalid && (pdescription.dirty || pdescription.touched)" class="alert text-danger">
+                <input class="form-control" type="text" id="Description" name="pdescription" [(ngModel)]="newproduct.pdescription" required minlength="5" pattern="[A-Za-z0-9]{0,100}" #pdescription="ngModel" />
+                <div *ngIf="pdescription.invalid && (pdescription.dirty || pdescription.touched)" class=" text-danger">
                     <div *ngIf="pdescription.errors?.['required']">
                         *Description is required.
                     </div>
@@ -161,10 +161,10 @@
                     <div *ngIf="pdescription.errors?.['pattern']">
                         *Special characters not allowed.
                     </div>
-                </div><br><br>
+                </div><br>
                 <label for="category">Category: &nbsp;</label>
-                <input type="text" id="category" name="category" [(ngModel)]="newproduct.category" required minlength="3" pattern="[A-Za-z0-9]{0,100}" #category="ngModel" />
-                <div *ngIf="category.invalid && (category.dirty || category.touched)" class="alert text-danger">
+                <input class="form-control" type="text" id="category" name="category" [(ngModel)]="newproduct.category" required minlength="3" pattern="[A-Za-z0-9]{0,100}" #category="ngModel" />
+                <div *ngIf="category.invalid && (category.dirty || category.touched)" class="text-danger">
                 <div *ngIf="category.errors?.['required']">
                     *Category is required.
                 </div>
@@ -174,7 +174,7 @@
                 <div *ngIf="category.errors?.['pattern']">
                     *Special characters not allowed.
                 </div>
-                </div><br><br>
+                </div><br>
                 <div class="text-center">
                     <input class="btn" type="submit" [disabled]="addproductForm.invalid" Value="Add Product" style="background-color: blueviolet;color:white;"/>
                 </div>

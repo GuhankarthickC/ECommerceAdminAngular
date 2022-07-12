@@ -12,6 +12,7 @@ export class ProductService {
   req:string="https://localhost:44346/api/Products";
   getAllProducts():Observable<Product[]>
   {
+    console.log("All Products called");
     return this.http.get<Product[]>(this.req);
   }
   getProductsByCategory(name:string):Observable<Product[]>{

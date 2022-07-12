@@ -26,6 +26,7 @@ export class AdminHomeComponent implements OnInit {
   constructor(public server:AdminService, private route:Router,private messages:ChatService) { }
 
   ngOnInit(): void {
+    console.log("page loaded");
     this.adminid = sessionStorage.getItem("adminId");
     if(this.adminid!= undefined && this.adminid.length == 5){
         this.server.getAdminById(this.adminid).subscribe(response=>{
@@ -38,7 +39,6 @@ export class AdminHomeComponent implements OnInit {
     }  
     if(sessionStorage.getItem("showChat")=="1"){
       this.getMessages();
-      this.showChatWindow=true;
     }
     else{
       this.showChatWindow=false;
@@ -92,26 +92,34 @@ export class AdminHomeComponent implements OnInit {
   checkNewMessages() {
     this.messages.getNewMessages(this.admin.adminId).subscribe(response=>{
       this.newMessages = response;
+      response.forEach(element => {
+        this.allMessages.push(element);
+      });
       console.log(this.newMessages.length,this.newMessages);
     });
     setTimeout(() => {
       this.checkNewMessages();
-    }, 10000);
+    }, 7000);
   }
 
   getMessages() {
     this.messages.getAllMessages(this.admin.adminId).subscribe(response=>{
       this.allMessages = response;
-      console.log(this.allMessages.length)
+      console.log("AllMessages Count: " + this.allMessages.length);
+      this.showChatWindow=true;
     });
   }
 
   sendNewMessage(){
     console.log("Send message called.");
     console.log(this.admin.adminId, this.selectedAdminForChat, this.adminMessage);
-    this.messages.pushMessage(this.admin.adminId,Number.parseInt(this.selectedAdminForChat,10),this.adminMessage).subscribe();
-    this.getMessages();
-    location.reload();
+    this.messages.pushMessage(this.admin.adminId,Number.parseInt(this.selectedAdminForChat,10),this.adminMessage).subscribe(
+      res=>{
+        this.allMessages.push(res);
+        this.adminMessage="";
+      }
+    );
+    
   }  
 
   stopNotifying(){

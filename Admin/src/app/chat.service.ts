@@ -19,7 +19,7 @@ export class ChatService {
     return this.http.get<Chat[]>(this.url + adminId);
   }
 
-  pushMessage(fromA:number,toA:number,m:string):any{
+  pushMessage(fromA:number,toA:number,m:string):Observable<Chat>{
     console.log(this.url);
     console.log(m);
     var newChat:Chat = new Chat();

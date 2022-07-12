@@ -216,7 +216,7 @@
 
 <div class="border border-dark bg-light shadow box-shadow" style="position:fixed;right:2%;bottom:2%;z-index:1" *ngIf="showChatWindow">
     <div class="toast-header opacity-100" style="color: blueviolet;">
-        <strong class="me-auto"> Chats </strong>
+        <strong class="me-auto"> Chats <small *ngIf="newMessages.length>0" class="text-success">{{newMessages.length}} New Message(s)</small> </strong>
         <button type="button" class="btn-close" (click)="closeMyProfile()"></button>
         </div>
         <div class="toast-body">
@@ -228,7 +228,7 @@
                 </select>
             </div>
             
-            <div class="border border-dark m-1" style="height:250px; width:240px;overflow: hidden;">
+            <div class="border border-dark m-1" style="width:240px;">
                 <div *ngIf="selectedAdminForChat!=undefined" style="overflow-y: scroll;height:250px">
                     <div *ngFor="let m of allMessages">
                         <div class="m-1 p-1" style="background-color: gray;color: white;width: 170px;word-wrap: break-word;" *ngIf="m.messageFrom.toString()==selectedAdminForChat">{{m.message}}</div>
@@ -245,7 +245,6 @@
             <div class="d-flex justify-content-between m-1">
                 <textarea #msg="ngModel" class="form-control" id="resize" style="word-wrap: break-word;overflow-y:auto;" [(ngModel)]="adminMessage" rows="2" placeholder="Start typing..." required></textarea>
                 <button style="background-color: blueviolet;" class="btn" [disabled]="selectAdmin.untouched || selectAdmin.invalid || msg.invalid"><i class="bi bi-send-fill" style="color: white;" (click)="sendNewMessage()"></i></button>
-                
             </div>
         </div>
 </div>

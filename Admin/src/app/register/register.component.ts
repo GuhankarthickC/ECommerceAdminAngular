@@ -32,6 +32,7 @@ export class RegisterComponent implements OnInit {
         console.log(this.registeredMessage);
         this.redirectDashboard();
       }
+      alert(this.registeredMessage);
     });
   }
 
