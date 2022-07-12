@@ -23,6 +23,15 @@ export class ProductService {
       })
     });
   }
+  getProductsByID(id:any):Observable<Product>{
+    return this.http.get<Product>(this.req+"/"+id,{
+      headers:new HttpHeaders({
+        'Content-Type':'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Allow-Method':'*'
+      })
+    });
+  }
   updateproductdetails(product:Product):Observable<any>
   {
       return this.http.put<any>(this.req+"/"+product.productId,product,{

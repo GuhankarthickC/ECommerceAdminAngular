@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminslistComponent } from './adminslist/adminslist.component';
 import { ProductsComponent } from './products/products.component';
 import { ChangesComponent } from './changes/changes.component';
+import { ProductstorageComponent } from './productstorage/productstorage.component';
+import { AnalysisComponent } from './analysis/analysis.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { ChangesComponent } from './changes/changes.component';
     RegisterComponent,
     AdminslistComponent,
     ProductsComponent,
-    ChangesComponent
+    ChangesComponent,
+    ProductstorageComponent,
+    AnalysisComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,7 @@ import { ChangesComponent } from './changes/changes.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
     
   ],
   providers: [],

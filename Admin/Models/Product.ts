@@ -1,8 +1,9 @@
 import { Cart } from "./Cart";
 import { Offer } from "./Offer";
 import { OrderItem } from "./OrderItem";
+import { ProductStorage } from "./ProductStorage";
 import { Rating } from "./Rating";
-import { Storage } from "./Storage";
+
 
 export class Product {
     productId: number;
@@ -18,5 +19,5 @@ export class Product {
     offers: Offer[];
     orderItems: OrderItem[];
     ratings: Rating[];
-    storages: Storage[];
+    storages: ProductStorage[];
 }
