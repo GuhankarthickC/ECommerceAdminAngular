@@ -21,6 +21,7 @@ export class AdminHomeComponent implements OnInit {
   neworders:number=0;
   ordervalue:Order[]=[];
   sampleorder:Order[]=[];
+  bydateorder:Order[]=[];
   adminid:string = "";
   isSuperAdmin:boolean;
   admin:Admin;
@@ -34,6 +35,17 @@ export class AdminHomeComponent implements OnInit {
   selectedAdminForChat:string="";
   adminMessage = "";
   admindashboard:any=false;
+  perdayrevenueloss:number=0;
+  perdayrevenueprofit:number=0;
+  presentdayrevenue:number=0;
+  previousdayrevenue:number=0;
+  presentdayorders:number=0;
+  previousdayorders:number=0;
+  fpresentdayorders:number=0;
+  fpreviousdayorders:number=0;
+  ordermessage:string="";
+  newproducts:number;
+  newcustomers:number;
   constructor(public server:AdminService, private route:Router,private messages:ChatService,private obj:CustomerService,private orderobj:OrdersService,private productobj:ProductService) { }
 
   ngOnInit(): void {
@@ -41,6 +53,10 @@ export class AdminHomeComponent implements OnInit {
     this.get_customers();
     this.get_revenuefromorders();
     this.get_products();
+    this.getrevenuebydate();
+    this.getordersbydate();
+    this.getnewproducts();
+    this.getnewcustomer();
     this.adminid = sessionStorage.getItem("adminId");
     this.admindashboard=JSON.parse(localStorage.getItem('admindashboard'));
     if(this.adminid!= undefined && this.adminid.length == 5){
@@ -171,5 +187,69 @@ export class AdminHomeComponent implements OnInit {
   get_products():void{
     this.productobj.getAllProducts().subscribe(data=>this.liveproducts=data.filter((res)=>res.active.toLocaleLowerCase()=="yes").length);
   }
-  
+  getrevenuebydate():void{
+    const date=new Date();
+    this.orderobj.getAllorder().subscribe((rsult=>{this.bydateorder=rsult.filter((res)=>res.orderedOn.slice(8,10).includes((date.getDate()).toString()))
+      console.log(this.bydateorder);
+      for(let j=0;j<this.bydateorder.length;j++){   
+        this.presentdayrevenue+= this.bydateorder[j].totalAmount; 
+      } 
+      console.log(this.presentdayrevenue);  
+      this.orderobj.getAllorder().subscribe((rsult=>{this.bydateorder=rsult.filter((res)=>res.orderedOn.slice(8,10).includes((date.getDate()-1).toString()))
+        console.log(this.bydateorder);
+        for(let j=0;j<this.bydateorder.length;j++){   
+          this.previousdayrevenue+= this.bydateorder[j].totalAmount; 
+        } 
+        console.log(this.previousdayrevenue);
+        console.log(this.presentdayrevenue);
+        if(this.previousdayrevenue>this.presentdayrevenue)
+        {
+          this.perdayrevenueloss=100-(100-(((this.previousdayrevenue-this.presentdayrevenue)/(this.previousdayrevenue+this.presentdayrevenue))*100));
+        }
+        else{
+          this.perdayrevenueprofit=(100-(((this.previousdayrevenue-this.presentdayrevenue)/(this.previousdayrevenue+this.presentdayrevenue))*100));
+        }
+      
+        console.log(this.perdayrevenueprofit,this.perdayrevenueloss);
+        }
+      )
+      );
+    }))
+  }
+  getordersbydate():void{
+    const date=new Date();
+    this.orderobj.getAllorder().subscribe((rsult=>{this.presentdayorders=rsult.filter((res)=>res.orderedOn.slice(8,10).includes((date.getDate()).toString())).length;
+      this.orderobj.getAllorder().subscribe((rsult=>{this.previousdayorders=rsult.filter((res)=>res.orderedOn.slice(8,10).includes((date.getDate()-1).toString())).length;
+        console.log(this.presentdayorders);
+        console.log(this.previousdayorders);
+        if(this.previousdayorders>this.presentdayorders)
+        {
+          this.fpreviousdayorders=(this.previousdayorders-this.presentdayorders);
+          this.ordermessage="Down by "+this.fpreviousdayorders+" Orders from past day";
+        }
+        else if(this.previousdayorders==this.presentdayorders){
+          this.fpreviousdayorders=(this.previousdayorders-this.presentdayorders);
+          this.ordermessage= this.presentdayorders+" Orders, Needs some Pace Up";
+        }
+        else {
+          this.fpresentdayorders=(this.presentdayorders-this.previousdayorders);
+          this.ordermessage= `Cheer Up, Up by ${this.fpresentdayorders} Orders from past day`;
+        }
+      
+        console.log(this.fpreviousdayorders,this.fpresentdayorders);
+        }
+      )
+      )}));
+  }
+  getnewproducts():void{
+    const date=new Date();
+    this.productobj.getAllProducts().subscribe((rsult=>{this.newproducts=rsult.filter((res)=>res.createdOn.slice(8,10).includes((date.getDate()).toString())).length;
+    }));
+  }
+  getnewcustomer():void{
+    const date=new Date();
+    this.obj.getAllCustomers().subscribe((rsult=>{this.newcustomers=rsult.filter((res)=>res.createdOn.slice(8,10).includes((date.getDate()).toString())).length;
+      console.log(this.newcustomers);
+    }));
+  }
 }

@@ -102,7 +102,7 @@
 <header class="py-3 mb-4 border-bottom shadow">
     <div class="container-fluid align-items-center d-flex">
         <div class="flex-shrink-1">
-            <a href="#" (click)="open()" class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none"><i class="bi bi-person-workspace fs-1"></i> </a>
+            <a href="#" class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none"><i class="bi bi-person-workspace fs-1"></i> </a>
         </div>
         <div class="flex-grow-1 d-flex align-items-center">
             <form class="w-100 me-3" style="margin-left:20px;">
@@ -126,10 +126,10 @@
             </button>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" (click)="showMyProfile()">My Profile</a></li>
-              <li *ngIf="isSuperAdmin==true"><a class="dropdown-item" routerLink="adminslist">View Admins</a></li>
-              <li *ngIf="isSuperAdmin==true"><a class="dropdown-item" routerLink="changes">Track Changes</a></li>
-              <li *ngIf="isSuperAdmin==true"><a class="dropdown-item" routerLink="register">Add New Admin</a></li>
-              <li><a class="dropdown-item" (click)="editMyProfile()">Edit Profile</a></li>
+              <li *ngIf="isSuperAdmin==true"><a class="dropdown-item" routerLink="adminslist" (click)="close()">View Admins</a></li>
+              <li *ngIf="isSuperAdmin==true"><a class="dropdown-item" routerLink="changes" (click)="close()">Track Changes</a></li>
+              <li *ngIf="isSuperAdmin==true"><a class="dropdown-item" routerLink="register" (click)="close()">Add New Admin</a></li>
+              <li><a class="dropdown-item" (click)="editMyProfile()" >Edit Profile</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#" (click)="callLogout()">Logout</a></li>
             </ul>
@@ -199,7 +199,7 @@
         </ul>
         </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9" style="height:600px;overflow-y:scroll;">
         <div class="bg-light border rounded-3 border- p-3">
             <router-outlet></router-outlet>
             <div class="container-fluid" *ngIf="admindashboard" style="z-index:0;">
@@ -208,21 +208,27 @@
                 </div>
                 <hr>
                 <div class="row ">
-                    <div class="col-xl-3 col-lg-6">
+                    <div class="col-6">
                         <div class="card l-bg-cherry">
                             <div class="card-statistic-3 p-4">
                                 <div class="card-icon card-icon-large"><i class="fas fa-shopping-cart"></i></div>
-                                <div class="mb-4">
+                                <div class="mb-2">
                                     <h5 class="card-title mb-0" style="font-weight:bold;">New Orders</h5>
                                 </div>
-                                <div class="row align-items-center mb-2 d-flex">
-                                    <div class="col-8">
+                                <div class="row d-flex">
+                                    <div class="col-12">
                                         <h2 class="d-flex align-items-center mb-0">
                                             {{neworders}}
                                         </h2>
                                     </div>
-                                    <div class="col-4 text-right">
-                                        <span>12.5% <i class="fa fa-arrow-up"></i></span>
+                                    <div *ngIf="fpresentdayorders > fpreviousdayorders">
+                                        <small>{{ordermessage}}</small><span style="margin-left:14px;" ><i class="fa fa-arrow-up"></i></span>
+                                    </div>
+                                    <div *ngIf="fpresentdayorders == fpreviousdayorders">
+                                        <small>{{ordermessage}}</small><span style="margin-left:14px;" ><i class="bi bi-hourglass-split"></i></span>
+                                    </div>
+                                    <div  *ngIf="fpresentdayorders < fpreviousdayorders"> 
+                                        <small >{{ordermessage}}</small><span style="margin-left:14px;"><i class="fa-solid fa-arrow-down"></i> </span>
                                     </div>
                                 </div>
                                 <div class="progress mt-1 " data-height="8" style="height: 8px;">
@@ -231,21 +237,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6">
+                    <div class="col-6">
                         <div class="card l-bg-blue-dark">
                             <div class="card-statistic-3 p-4">
                                 <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
-                                <div class="mb-4">
+                                <div class="mb-2">
                                     <h5 class="card-title mb-0" style="font-weight:bold;">Customers (Active)</h5>
                                 </div>
                                 <div class="row align-items-center mb-2 d-flex">
-                                    <div class="col-8">
+                                    <div class="col-12">
                                         <h2 class="d-flex align-items-center mb-0">
                                             {{customercount}}
                                         </h2>
                                     </div>
-                                    <div class="col-4 text-right">
-                                        <span>9.23% <i class="fa fa-arrow-up"></i></span>
+                                    <div *ngIf="newcustomers > 0">
+                                        <small>{{newcustomers}} Customers Registered today</small><span style="margin-left:14px;" > <i class="fa fa-arrow-up"></i></span>
+                                    </div>
+                                    <div  *ngIf="newcustomers == 0"> 
+                                        <small >{{newcustomers}} Customers Registered today</small><span style="margin-left:14px;"><i class="fa-solid fa-arrow-down"></i> </span>
                                     </div>
                                 </div>
                                 <div class="progress mt-1 " data-height="8" style="height: 8px;">
@@ -254,12 +263,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6">
+                    <div class="col-6">
                         <div class="card l-bg-green-dark">
                             <div class="card-statistic-3 p-4">
                                 <div class="card-icon card-icon-large"><i class="fas fa-ticket-alt"></i></div>
-                                <div class="mb-4">
-                                    <h5 class="card-title mb-0" style="font-weight:bold;">Products (Live)</h5>
+                                <div class="mb-2">
+                                    <h5 class="card-title mb-0" style="font-weight:bold;">Products</h5>
                                 </div>
                                 <div class="row align-items-center mb-2 d-flex">
                                     <div class="col-8">
@@ -267,8 +276,11 @@
                                             {{liveproducts}}
                                         </h2>
                                     </div>
-                                    <div class="col-4 text-right">
-                                        <span>10% <i class="fa fa-arrow-up"></i></span>
+                                    <div *ngIf="newproducts > 0">
+                                        <small>{{newproducts}} listed today</small><span style="margin-left:14px;" > <i class="fa fa-arrow-up"></i></span>
+                                    </div>
+                                    <div  *ngIf="newproducts == 0"> 
+                                        <small >{{newproducts}} listed today</small><span style="margin-left:14px;"><i class="fa-solid fa-arrow-down"></i> </span>
                                     </div>
                                 </div>
                                 <div class="progress mt-1 " data-height="8" style="height: 8px;">
@@ -277,32 +289,37 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-6">
+                    <div class="col-6">
                         <div class="card l-bg-orange-dark">
                             <div class="card-statistic-3 p-4">
                                 <div class="card-icon card-icon-large"><i class="fa-solid fa-indian-rupee-sign fa-7x"></i></div>
-                                <div class="mb-4">
+                                <div class="mb-2">
                                     <h5 class="card-title mb-0" style="font-weight:bold;">Revenue (Till Date)</h5>
                                 </div>
-                                <div class="row align-items-center mb-2 d-flex">
-                                    <div class="col-8">
+                                <div class="row d-flex">
+                                    <div class="col-12">
                                         <h2 class="d-flex align-items-center mb-0">
                                             Rs.{{revenue}}
                                         </h2>
-                                    </div>
-                                    <div class="col-4 text-right">
-                                        <span>2.5% <i class="fa fa-arrow-up"></i></span>
+                                        <div>
+                                        <div *ngIf="perdayrevenueprofit > 0">
+                                            <small>(Up for the day)</small><span style="margin-left:140px;" >{{perdayrevenueprofit | number : '1.1-1'}}% <i class="fa fa-arrow-up"></i></span>
+                                        </div>
+                                        <div  *ngIf="perdayrevenueloss > 0"> 
+                                            <small >(Down for the day)</small><span style="margin-left:140px;">{{perdayrevenueloss | number : '1.1-1'}}% <i class="fa-solid fa-arrow-down"></i> </span>
+                                        </div>
                                     </div>
                                 </div>
+                                </div>
                                 <div class="progress mt-1 " data-height="8" style="height: 8px;">
-                                    <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                                    <div class="progress-bar l-bg-cyan" role="progressbar" aria-valuemin="0" aria-valuemax="100" [style.width]="perdayrevenueprofit ? '70%' : (perdayrevenueloss? '2%' : null)"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-7"><app-charts></app-charts></div>
+                    <div class="col-12"><app-charts></app-charts></div>
                     
                 </div>
             </div>

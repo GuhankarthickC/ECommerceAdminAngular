@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Order } from 'Models/Order';
 import { CanvasJS } from 'src/assets/charts/canvasjs.angular.component';
@@ -12,7 +13,9 @@ export class ChartsComponent implements OnInit {
 orders:Order[]=[];
 totalorders:number;
 dataPoints1 = []
+datapoints2=[]
 chartoptions={}
+chartdata={}
   constructor(private orderobj:OrdersService) { }
 
   ngOnInit(): void {
@@ -27,7 +30,7 @@ chartoptions={}
 	}
 	console.log(result2);
 	for(var k=0;k<result2.length;k++){
-		this.dataPoints1.push({name: String(result2[k].name), y: Number(result2[k].value)});
+		this.dataPoints1.push({name: String(result2[k].name), y: Number(result2[k].value).toPrecision(3)});
 	}
 	console.log(this.dataPoints1);
 	this.chartoptions = {
@@ -38,15 +41,36 @@ chartoptions={}
 		  text: "Total Orders Overview",fontFamily: "Calibri, Arial, sans-serif"
 		}],
 		data: [{
-		  type: "pie", //change type to column, line, area, doughnut, etc
+		  type: "pie", 
 		  showInLegend:true,
-		  indexLabel: "{name}: {y}%",
+		  indexLabel: "{name}: {y}%", 
 		  dataPoints: this.dataPoints1
 		}]
 	  }
+	  for(var j=0;j<this.orders.length;j++){
+		const date=new Date(this.orders[j].orderedOn);
+		console.log();
+		this.datapoints2.push({x:date, y: Number(this.orders[j].totalAmount)});
+		}
+	  this.chartdata = {
+		animationEnabled: true,
+		zoomEnabled: true,     
+		gridThickness: 2,
+		theme: "dark2",
+		axisX:{
+			title: "Date/Time"
+		   },
+		   axisY:{
+			title: "Revenue (Rs)"
+		   },
+		exportEnabled: true,
+     data: [{        
+      type: "area",
+	  
+	  xValueType: "dateTime",
+      dataPoints: this.datapoints2
+    }]}
      });
-	
-  
   }
   
 }

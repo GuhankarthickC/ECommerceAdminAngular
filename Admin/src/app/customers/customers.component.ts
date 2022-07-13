@@ -9,13 +9,18 @@ import { CustomerService } from '../customer.service';
 })
 export class CustomersComponent implements OnInit {
 users:User[]=[];
+inactive:User[]=[];
 count:any;
 table_value:any=false;
 table_error:any=true;
+totalusers:number;
   constructor(private obj:CustomerService) { }
 
   ngOnInit(): void {
     this.get_customers();
+    this.obj.getAllCustomers().subscribe(d=>{this.inactive=d;
+    this.totalusers=d.length;  
+    console.log(this.totalusers);})
   }
   get_customers():void
   {

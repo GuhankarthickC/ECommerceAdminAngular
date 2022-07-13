@@ -12,7 +12,6 @@ export class AnalysisComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  chartOption
   chartOptions = {
     animationEnabled: true,
     exportEnabled: true,

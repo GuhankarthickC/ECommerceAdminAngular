@@ -10,7 +10,7 @@ export class User {
     mailId: string;
     mobile: string;
     password: string;
-    createdOn: Date | null;
+    createdOn: string | null;
     isActive: boolean | null;
     isDeleted: boolean | null;
     deletedOn: string | null;
