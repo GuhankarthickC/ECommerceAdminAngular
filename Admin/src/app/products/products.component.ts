@@ -25,6 +25,7 @@ activeproducts:any=true;
 inactiveproducts:any=false;
 addproducts:any=false;
 datenow:Date=new Date();
+productsbyprice:Product[]=[];
 newproduct:Product={productId:0,productName:"",imageUrl:"",price:0,active:"",createdOn:"",modifiedOn:"",pdescription:"",category:"",carts:[],offers:[],orderItems:[],storages:[],ratings:[]};
   constructor(private obj:ProductService) { }
 
@@ -55,7 +56,10 @@ newproduct:Product={productId:0,productName:"",imageUrl:"",price:0,active:"",cre
     this.products=this.filteredproducts;
   }
   price():void{
-    this.products=this.products.filter((product)=>(product.price > this.value));
+    this.obj.getAllProducts().subscribe(data=>{this.products=data;
+      this.products=this.products.filter((product)=>(product.price > this.value));
+    console.log(this.products);} );
+   
   }
   sort():void{
     this.others.push("Vegetables","Fruits","Juices","Electronics");
