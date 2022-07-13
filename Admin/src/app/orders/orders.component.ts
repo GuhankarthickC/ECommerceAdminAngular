@@ -21,11 +21,19 @@ export class OrdersComponent implements OnInit {
   allUserAddresses:UserAddress[] = [];
   showOrder:boolean = false;
   editOrder:boolean = false;
-  order:Order;
+  order:Order = new Order();
+  selectedUser: User;
+  selectedUserAddress: UserAddress;
+  selectedOrderItems: OrderItem[] = [];
+  selectedProducts: Product[] = [];
   constructor(private orderService: OrderService,private prodService:ProductService,private custService:CustomerService) { }
 
   ngOnInit(): void {
     this.getAllOrders();
+    this.getAllOrderItems();
+    this.getAllUsers();
+    this.getAllUserAddresses();
+    this.getAllProducts();
   }
 
   getAllOrders(){
@@ -36,42 +44,46 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  // getAllOrderItems(){
-  //   this.orderService.getOrderItems().subscribe(response=>{
-  //     this.allOrderItems = response;
-  //   });
-  // }
+  getAllOrderItems(){
+    this.orderService.getOrderItems().subscribe(response=>{
+      this.allOrderItems = response;
+    });
+  }
   
-  // getAllProducts(){
-  //   this.prodService.getAllProducts().subscribe(response=>{
-  //     this.allProducts = response;
-  //   });
-  // }
+  getAllProducts(){
+    this.prodService.getAllProducts().subscribe(response=>{
+      this.allProducts = response;
+    });
+  }
 
-  // getAllUsers(){
-  //   this.custService.getAllCustomers().subscribe(response=>{
-  //     this.allUsers = response;
-  //   });
-  // }
+  getAllUsers(){
+    this.custService.getAllCustomers().subscribe(response=>{
+      this.allUsers = response;
+    });
+  }
   
-  // getAllUserAddresses(){
-  //   this.custService.getAllCustomersAddresses().subscribe(response=>{
-  //     this.allUserAddresses = response;
-  //   });
-  // }
+  getAllUserAddresses(){
+    this.custService.getAllCustomersAddresses().subscribe(response=>{
+      this.allUserAddresses = response;
+    });
+  }
 
   showOrderDetails(od:Order):any{
     this.order = od;
-    // this.selectedUser = this.allUsers.find(u=>u.userId==order.userId);
-    // this.selectedUserAddress = this.allUserAddresses.find(u=>u.id == order.deliveryAddress);
-    // console.log(order);
-    // console.log(this.selectedUserAddress);
-    // this.allOrderItems.forEach(item => {
-    //   if(item.orderId == order.orderId){
-    //     this.selectedOrderItems.push(item);
-    //     this.selectedProducts.push(this.allProducts.find(p=>p.productId == item.productId))
-    //   }
-    // });
+    this.order.user = this.allUsers.find(u=>u.userId==od.userId);
+    this.order.deliveryAddressNavigation = this.allUserAddresses.find(u=>u.id == od.deliveryAddress);
+    console.log(od);
+    console.log(this.selectedUserAddress);
+    this.selectedOrderItems =[];
+    this.allOrderItems.forEach(item => {
+      if(item.orderId == od.orderId){
+        item.product =this.allProducts.find(p=>p.productId == item.productId);
+        this.selectedOrderItems.push(item);
+        console.log(item);
+      }
+    });
+    this.order.orderItems = this.selectedOrderItems;
+    console.log(this.order.orderItems)
     this.showOrder = true;
   }
   
