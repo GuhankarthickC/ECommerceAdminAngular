@@ -51,19 +51,19 @@
 <div class="border border-dark bg-light opacity-50" style="position:fixed;left:0%;top:0%;height: 100%;width: 100%;" *ngIf="showOrder || editOrder">
 </div>
 
-<div class="border border-dark bg-light shadow box-shadow" style="position:fixed;left:10%;top:2%;z-index:1" *ngIf="showOrder">
+<div class="border border-dark bg-light shadow box-shadow" style="position:fixed;left:2%;top:2%;z-index:1" *ngIf="showOrder">
   <div class="toast-header opacity-100" style="color: blueviolet;">
-    <strong class="me-auto"> Show Order Details </strong>
+    <strong class="me-auto"> Order Details </strong>
     <button type="button" class="btn-close" (click)="close()"></button>
   </div>
   <div class="toast-body p-2">
       <div class="d-flex justify-content-between">
         <div>
           <div class="bg-light m-1 border border-dark rounded p-2">
-            <p class="fs-3">{{order.deliveryAddressNavigation.user.firstName+" "+order.deliveryAddressNavigation.user.lastName}}</p>
-            <small style="color: blueviolet;">#{{order.deliveryAddressNavigation.user.userId}}</small>
-            <p>{{order.deliveryAddressNavigation.user.mailId}}</p>
-            <p>{{order.deliveryAddressNavigation.user.mobile}}</p>
+            <p class="fs-3">{{order.user.firstName+" "+order.user.lastName}}</p>
+            <small style="color: blueviolet;">#{{order.user.userId}}</small>
+            <p>{{order.user.mailId}}</p>
+            <p>{{order.user.mobile}}</p>
           </div>
           <div class="bg-light m-1 border border-dark rounded p-2">
             <p class="fs-3">Delivery Address</p>
@@ -80,15 +80,49 @@
           </table>
           </div>
         </div>
-        <div class="bg-light m-1 border border-dark rounded p-2" style="height:475px;overflow-y: scroll;border-width: 1px;border: black;">
-          <p>Order Items</p>
-          <div class="border border-dark rounded p-1">
-            <table>
-              <tr *ngFor="">
-                <td></td>
+        <div class="bg-light m-1 border border-dark rounded p-2" style="height:475px;border-width: 1px;border: black;">
+          <p class="fs-3">Order Items [Order ID: <small style="color: blueviolet;">#{{order.orderId}}</small> ]</p>
+          <div class="border border-dark rounded p-1" style="height:400px;overflow-y: scroll;">
+            <table class="table table-striped-columns">
+              <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>SubTotal</th>
+                <th>Is Returned</th>
+              </tr>
+              <tr rowspacing="1" *ngFor="let item of order.orderItems" >
+                <td>{{item.productId}}</td>
+                <td>{{item.productName}}</td>
+                <td><img style="height: 100px;" src="../../assets/images/{{item.product.imageUrl}}" alt=""></td>
+                <td>{{item.price}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.subTotal}}</td>
+                <td>{{item.isReturned}}</td>
               </tr>
             </table>
           </div>
+        </div>
+        <div class="border border-dark rounded p-1 m-1" style="width: 250px;">
+          Order Id: <br>
+          #{{order.orderId}} <br>
+          User ID: <br>
+          #{{order.userId}} <br>
+          
+          Total Amount: <br>
+          {{order.totalAmount}} <br>
+          Payment Type: <br>
+          {{order.paymentType}} <br>
+          Payment ID: <br>
+          #{{order.paymentId}} <br>
+          Offer ID: <br>
+          #{{order.offerId}} <br>
+          Ordered On: <br>
+          {{order.orderedOn|date}} <br>
+          Order Status: <br>
+          <small style="background-color: blueviolet;color:white;padding:5px">{{order.orderStatus}}</small> <br>
         </div>
       </div>
   </div>
