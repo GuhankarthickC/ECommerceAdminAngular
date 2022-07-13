@@ -9,7 +9,7 @@
 </head>
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet">Storage Data <i style="margin-left:10px;" class="bi bi-boxes"></i></h1>
-    <p class="mb-4" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Products and their quantities are segregated on their respective storages. Kindly select one to see details.<br>
+    <p class="mb-4" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Products and their quantities are segregated based on their respective storages, Kindly select one to see details.<br>
         by below stats given.</p>
 <select class="form-control" [(ngModel)]="selectedname" (ngModelChange)="getproductfromstorage()">
     <option *ngFor="let item of uniquestoragename" [value]="item.storageName">

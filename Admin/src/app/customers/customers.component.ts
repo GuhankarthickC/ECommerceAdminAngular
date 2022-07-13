@@ -19,7 +19,7 @@ table_error:any=true;
   }
   get_customers():void
   {
-    this.obj.getAllCustomers().subscribe(data=>{
+    this.obj.getAllCustomers().subscribe(data=>{data=data.filter((res)=>res.isActive==true)
       this.users=data;
       this.count=data.length;
       console.log(this.users);

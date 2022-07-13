@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit {
 
   redirectDashboard():void{
     this.route.navigateByUrl("");
+    localStorage.setItem('admindashboard', JSON.stringify(true));
   }
 
   closeToast(){

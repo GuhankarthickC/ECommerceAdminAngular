@@ -15,6 +15,9 @@ import { ProductsComponent } from './products/products.component';
 import { ChangesComponent } from './changes/changes.component';
 import { ProductstorageComponent } from './productstorage/productstorage.component';
 import { AnalysisComponent } from './analysis/analysis.component';
+import * as CanvasJSAngularChart from '../assets/charts/canvasjs.angular.component';
+import { ChartsComponent } from './charts/charts.component';
+var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart;
 
 @NgModule({
   declarations: [
@@ -28,7 +31,7 @@ import { AnalysisComponent } from './analysis/analysis.component';
     ProductsComponent,
     ChangesComponent,
     ProductstorageComponent,
-    AnalysisComponent
+    AnalysisComponent,CanvasJSChart, ChartsComponent
   ],
   imports: [
     BrowserModule,
