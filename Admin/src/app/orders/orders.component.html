@@ -110,7 +110,6 @@
           #{{order.orderId}} <br>
           User ID: <br>
           #{{order.userId}} <br>
-          
           Total Amount: <br>
           {{order.totalAmount}} <br>
           Payment Type: <br>
@@ -121,6 +120,8 @@
           #{{order.offerId}} <br>
           Ordered On: <br>
           {{order.orderedOn|date}} <br>
+          Delivery Date: <br>
+          {{order.deliveryDate|date}} <br>
           Order Status: <br>
           <small style="background-color: blueviolet;color:white;padding:5px">{{order.orderStatus}}</small> <br>
         </div>
@@ -134,6 +135,19 @@
     <button type="button" class="btn-close" (click)="close()"></button>
   </div>
   <div class="toast-body">
-      
+      <form>
+        Delivery Date:
+        <input class="form-control" type="date" [(ngModel)]="order.deliveryDate" [ngModelOptions]="{standalone:true}">
+        <br>
+        Order Status:
+        <select class="form-select" [(ngModel)]="order.orderStatus" [ngModelOptions]="{standalone:true}">
+          <option value="placed">Placed</option>
+          <option value="shipped">Shipped</option>
+          <option value="ontheway">On The Way</option>
+          <option value="delivered">Delivered</option>
+        </select>
+        <br>
+        <button class="btn" style="color:white;background-color: blueviolet;" (click)="changeOrderDetails()">Save</button>
+      </form>
   </div>
 </div>

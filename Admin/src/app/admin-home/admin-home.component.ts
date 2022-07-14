@@ -69,7 +69,7 @@ export class AdminHomeComponent implements OnInit {
         this.isSuperAdmin=this.admin.isSuperAdmin;
         this.getAllAdmins();
         this.checkNewMessages();
-      })
+      });
     }  
     if(sessionStorage.getItem("showChat")=="1"){
       this.getMessages();
@@ -121,7 +121,7 @@ export class AdminHomeComponent implements OnInit {
     console.log(sessionStorage.getItem("adminId"),"loggedout");
     location.reload();
   }
-  
+
 
   showChat(){
     this.showChatWindow = true;

@@ -86,8 +86,14 @@ export class OrdersComponent implements OnInit {
     console.log(this.order.orderItems)
     this.showOrder = true;
   }
+
+  changeOrderDetails(){
+    this.orderService.updateOrder(this.order).subscribe();
+    location.reload();
+  }
   
   showEditOrder(ad:Order):any{
+    this.order = ad;
     this.editOrder = true;
   }
 
