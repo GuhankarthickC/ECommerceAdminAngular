@@ -1,17 +1,19 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Admin } from 'Models/Admin';
 import { Order } from 'Models/Order';
 import { OrderItem } from 'Models/OrderItem';
 import { catchError, Observable, throwError } from 'rxjs';
+import { AdminService } from './admin.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  url: string = "https://localhost:44346/api/Orders/";
-  orderitemsurl: string = "https://localhost:44346/api/OrderItems/";
+  url: string = "https://localhost:44346/api/Order/";
+  orderitemsurl: string = "https://localhost:44346/api/OrderItem/";
   
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private userServ:AdminService) { }
 
   getOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(this.url).pipe(catchError(this.handleError));
@@ -49,6 +51,7 @@ export class OrderService {
       console.error(
         'Backend returned code ${error.status}, body was: ',error.status);
     }
+    this.userServ.logout(sessionStorage.getItem("adminId")).subscribe();
     sessionStorage.setItem("response", "serverdown");
     sessionStorage.setItem("show", "1");
     location.reload();

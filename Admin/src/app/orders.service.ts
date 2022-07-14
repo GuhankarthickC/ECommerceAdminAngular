@@ -1,3 +1,4 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Order } from 'Models/Order';
@@ -9,9 +10,13 @@ import { Observable } from 'rxjs/internal/Observable';
 export class OrdersService {
 
   constructor(private http:HttpClient) { }
-  req:string="https://localhost:44346/api/Orders";
+
   getAllorder():Observable<Order[]>
   {
-    return this.http.get<Order[]>(this.req);
+    console.log("https://localhost:44346/api/Order/");
+    console.log("IN service");
+    return this.http.get<Order[]>("https://localhost:44346/api/Order/");
   }
+
+ 
 }

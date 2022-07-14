@@ -63,7 +63,7 @@ export class AdminHomeComponent implements OnInit {
         this.server.getAdminById(this.adminid).subscribe(response=>{
         this.server.admin = response;
         this.admin = response;
-        this.admin.adminName=this.admin.adminName.charAt(0).toUpperCase()+this.admin.adminName.slice(1).toLowerCase();
+        // this.admin.adminName=this.admin.adminName.charAt(0).toUpperCase()+this.admin.adminName.slice(1).toLowerCase();
         this.isSuperAdmin=this.admin.isSuperAdmin;
         this.getAllAdmins();
         this.checkNewMessages();

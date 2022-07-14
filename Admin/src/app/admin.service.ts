@@ -78,7 +78,7 @@ export class AdminService {
     }
     sessionStorage.setItem("response", "serverdown");
     sessionStorage.setItem("show", "1");
-    location.reload();
+    // location.reload();
     // Return an observable with a user-facing error message.
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
