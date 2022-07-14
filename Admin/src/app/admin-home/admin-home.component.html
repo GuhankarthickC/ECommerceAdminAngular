@@ -202,7 +202,7 @@
     <div class="col-md-9" style="height:600px;overflow-y:scroll;">
         <div class="bg-light border rounded-3 border- p-3">
             <router-outlet></router-outlet>
-            <div class="container-fluid" *ngIf="admindashboard" style="z-index:0;">
+            <div class="container-fluid" *ngIf="admindashboard && !admindashboarderror" style="z-index:0;">
                 <div class="d-sm-flex justify-content-center mb-4">
                     <h1 class="h3 mb-2" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;color:blueviolet">Dashboard</h1>
                 </div>
@@ -224,7 +224,7 @@
                                     <div *ngIf="fpresentdayorders > fpreviousdayorders">
                                         <small>{{ordermessage}}</small><span style="margin-left:14px;" ><i class="fa fa-arrow-up"></i></span>
                                     </div>
-                                    <div *ngIf="fpresentdayorders == fpreviousdayorders">
+                                    <div *ngIf="presentdayorders == previousdayorders && (presentdayorders!=0)">
                                         <small>{{ordermessage}}</small><span style="margin-left:14px;" ><i class="bi bi-hourglass-split"></i></span>
                                     </div>
                                     <div  *ngIf="fpresentdayorders < fpreviousdayorders"> 
@@ -322,6 +322,9 @@
                     <div class="col-12"><app-charts></app-charts></div>
                     
                 </div>
+            </div>
+            <div *ngIf="admindashboarderror" class="row">
+                <h1>Server down</h1>
             </div>
         </div>  
     </div>

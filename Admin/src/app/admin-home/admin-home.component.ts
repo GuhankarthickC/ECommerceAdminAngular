@@ -35,6 +35,7 @@ export class AdminHomeComponent implements OnInit {
   selectedAdminForChat:string="";
   adminMessage = "";
   admindashboard:any=false;
+  admindashboarderror:any=false;
   perdayrevenueloss:number=0;
   perdayrevenueprofit:number=0;
   presentdayrevenue:number=0;
@@ -59,6 +60,7 @@ export class AdminHomeComponent implements OnInit {
     this.getnewcustomer();
     this.adminid = sessionStorage.getItem("adminId");
     this.admindashboard=JSON.parse(localStorage.getItem('admindashboard'));
+    this.admindashboarderror=JSON.parse(localStorage.getItem('admindashboarderror'));
     if(this.adminid!= undefined && this.adminid.length == 5){
         this.server.getAdminById(this.adminid).subscribe(response=>{
         this.server.admin = response;
