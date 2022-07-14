@@ -119,6 +119,7 @@ export class AdminHomeComponent implements OnInit {
     console.log(sessionStorage.getItem("adminId"),"loggedout");
     location.reload();
   }
+  
 
   showChat(){
     this.showChatWindow = true;
