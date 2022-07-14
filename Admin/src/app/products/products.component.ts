@@ -42,6 +42,7 @@ newproduct:Product={productId:0,productName:"",imageUrl:"",price:0,active:"",cre
         this.producttable=true;
       }
     });
+    localStorage.setItem('admindashboard', JSON.stringify(true));
   }
   getbyCategory(categoryname:string):void{
     this.obj.getProductsByCategory(categoryname).subscribe(data=>{
@@ -62,7 +63,7 @@ newproduct:Product={productId:0,productName:"",imageUrl:"",price:0,active:"",cre
    
   }
   sort():void{
-    this.others.push("Vegetables","Fruits","Juices","Electronics");
+    this.others.push("Vegetables","Fruits","Juices","Electronics","Mobiles");
     this.clothing.push("MenApparels","WomenApparels","Footwear");
     if(this.ischecked){
       this.products=this.filteredproducts.filter((product)=>(this.clothing.includes(product.category)));
@@ -88,6 +89,7 @@ newproduct:Product={productId:0,productName:"",imageUrl:"",price:0,active:"",cre
     this.obj.updateproductdetails(this.selectedproduct).subscribe();
     this.close();
     location.reload();
+    localStorage.setItem('admindashboard', JSON.stringify(false));
   }
   getimagename():void{
     this.image=this.imagename.split('\\');
@@ -113,10 +115,12 @@ newproduct:Product={productId:0,productName:"",imageUrl:"",price:0,active:"",cre
     this.obj.createnewproduct(this.newproduct).subscribe();
     this.addproducts=false;
     location.reload();
+    localStorage.setItem('admindashboard', JSON.stringify(false));
   }
   deleteproduct():void{
     confirm("You're about to delete a product, please confirm ?");
     this.obj.deleteproduct(this.selectedproduct.productId).subscribe();
     location.reload();
+    localStorage.setItem('admindashboard', JSON.stringify(false));
   }
 }
